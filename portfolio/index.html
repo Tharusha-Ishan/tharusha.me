@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tharusha Ishan | Fullstack Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #0f172a;
+        color: #e2e8f0;
+        scroll-behavior: smooth;
+      }
+      .gradient-text {
+        background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .glass-card {
+        background: rgba(15, 23, 42, 0.7);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .skill-pill {
+        transition: all 0.3s ease;
+      }
+      .skill-pill:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      }
+      #threejs-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+      }
+      .project-card:hover .project-overlay {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .project-overlay {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.3s ease;
+      }
+      .timeline-item::before {
+        content: "";
+        position: absolute;
+        left: -38px;
+        top: 0;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: #3b82f6;
+        border: 3px solid #1e40af;
+      }
+      .profile-image {
+        border: 4px solid #3b82f6;
+        box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Three.js Background -->
+    <div id="threejs-container"></div>
+
+    <!-- Floating Particles Canvas -->
+    <div id="particles-js" class="fixed top-0 left-0 w-full h-full z-0"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 glass-card shadow-lg">
+      <div
+        class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <a href="#" class="text-2xl font-bold gradient-text">Tharusha Ishan</a>
+        <div class="hidden md:flex space-x-8 items-center">
+          <a href="#about" class="hover:text-blue-400 transition">About</a>
+          <a href="#education" class="hover:text-blue-400 transition"
+            >Education</a
+          >
+          <a href="#projects" class="hover:text-blue-400 transition"
+            >Projects</a
+          >
+          <a href="#skills" class="hover:text-blue-400 transition">Skills</a>
+          <a href="#contact" class="hover:text-blue-400 transition">Contact</a>
+          <a
+            href="#"
+            class="bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-2 rounded-full hover:shadow-lg transition"
+            >Resume</a
+          >
+        </div>
+        <button class="md:hidden text-xl" id="menu-toggle">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden md:hidden glass-card p-4">
+        <div class="flex flex-col space-y-4">
+          <a href="#about" class="hover:text-blue-400 transition">About</a>
+          <a href="#education" class="hover:text-blue-400 transition"
+            >Education</a
+          >
+          <a href="#projects" class="hover:text-blue-400 transition"
+            >Projects</a
+          >
+          <a href="#skills" class="hover:text-blue-400 transition">Skills</a>
+          <a href="#contact" class="hover:text-blue-400 transition">Contact</a>
+          <a
+            href="#"
+            class="bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-2 rounded-full text-center"
+            >Resume</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section
+      class="min-h-screen flex items-center justify-center relative z-10"
+    >
+      <div
+        class="max-w-6xl mx-auto px-6 py-20 flex flex-col md:flex-row items-center gap-12"
+      >
+        <div class="md:w-1/2 text-center md:text-left" data-aos="fade-right">
+          <h1 class="text-5xl md:text-6xl font-bold mb-6">
+            <span class="gradient-text">Tharusha Ishan</span>
+          </h1>
+          <h2 class="text-2xl md:text-3xl mb-6 text-blue-200">
+            Undergraduate Software Engineering Student at KIU
+          </h2>
+          <p class="text-lg md:text-xl mb-10 text-gray-300">
+            Fullstack Developer crafting modern web applications with
+            cutting-edge technologies. Passionate about building solutions that
+            make a difference.
+          </p>
+          <div
+            class="flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-6"
+          >
+            <a
+              href="#projects"
+              class="bg-gradient-to-r from-blue-500 to-purple-600 px-8 py-3 rounded-full hover:shadow-lg transition transform hover:scale-105 text-center"
+            >
+              View My Work
+            </a>
+            <a
+              href="#contact"
+              class="border border-blue-400 text-blue-400 px-8 py-3 rounded-full hover:bg-blue-900/30 transition transform hover:scale-105 text-center"
+            >
+              Contact Me
+            </a>
+          </div>
+        </div>
+        <div class="md:w-1/2 flex justify-center" data-aos="fade-left">
+          <div class="relative">
+            <div
+              class="absolute -inset-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full opacity-75 blur-xl animate-pulse"
+            ></div>
+            <div class="relative">
+              <!-- Replace with your actual profile image -->
+              <img
+                src="images/profile.jpg"
+                alt="Tharusha Ishan"
+                class="w-64 h-64 md:w-80 md:h-80 rounded-full object-cover profile-image"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-6 relative z-10">
+      <div class="max-w-6xl mx-auto">
+        <h2
+          class="text-3xl md:text-4xl font-bold mb-16 text-center gradient-text"
+          data-aos="fade-up"
+        >
+          About Me
+        </h2>
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div class="relative" data-aos="fade-right">
+            <div
+              class="absolute -inset-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl opacity-75 blur"
+            ></div>
+            <div class="relative bg-gray-900 rounded-2xl overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1614741118887-7a4ee193a5fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                alt="Tharusha Ishan"
+                class="w-full h-auto object-cover"
+              />
+            </div>
+          </div>
+          <div data-aos="fade-left">
+            <h3 class="text-2xl font-semibold mb-4">
+              Building Digital Solutions
+            </h3>
+            <p class="text-gray-300 mb-6">
+              I'm Tharusha Ishan, a passionate undergraduate Software
+              Engineering student at KIU with expertise in full-stack
+              development. I specialize in creating modern web applications that
+              solve real-world problems.
+            </p>
+            <p class="text-gray-300 mb-6">
+              My journey in technology began with a curiosity about how things
+              work, which evolved into a passion for building digital solutions.
+              I enjoy the entire development process, from conceptualizing ideas
+              to deploying fully-functional applications.
+            </p>
+            <p class="text-gray-300 mb-8">
+              When I'm not coding, you can find me exploring new technologies,
+              contributing to open-source projects, or enjoying outdoor
+              activities that inspire creativity.
+            </p>
+            <div class="flex flex-wrap gap-4">
+              <div class="flex items-center">
+                <div class="w-3 h-3 rounded-full bg-blue-500 mr-2"></div>
+                <span>Full-stack Development</span>
+              </div>
+              <div class="flex items-center">
+                <div class="w-3 h-3 rounded-full bg-purple-500 mr-2"></div>
+                <span>Web Applications</span>
+              </div>
+              <div class="flex items-center">
+                <div class="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
+                <span>Problem Solving</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="py-20 px-6 bg-gray-900/50 relative z-10">
+      <div class="max-w-6xl mx-auto">
+        <h2
+          class="text-3xl md:text-4xl font-bold mb-16 text-center gradient-text"
+          data-aos="fade-up"
+        >
+          Education
+        </h2>
+        <div class="relative">
+          <!-- Timeline -->
+          <div class="border-l-2 border-gray-700 ml-8 pl-8 space-y-12">
+            <!-- Timeline Item -->
+            <div class="relative" data-aos="fade-up">
+              <div class="glass-card p-6 rounded-xl shadow-lg">
+                <div class="flex flex-col md:flex-row justify-between mb-4">
+                  <h3 class="text-xl font-semibold">
+                    BSc (Hons) in Software Engineering
+                  </h3>
+                  <span class="text-blue-400">Present</span>
+                </div>
+                <h4 class="text-lg text-purple-300 mb-3">KIU University</h4>
+                <p class="text-gray-300 mb-4">
+                  Currently pursuing my undergraduate degree with a focus on
+                  full-stack development, software architecture, and emerging
+                  technologies.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span
+                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
+                    >Fullstack Development</span
+                  >
+                  <span
+                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
+                    >Software Architecture</span
+                  >
+                  <span
+                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
+                    >Emerging Technologies</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 px-6 relative z-10">
+      <div class="max-w-6xl mx-auto">
+        <h2
+          class="text-3xl md:text-4xl font-bold mb-4 text-center gradient-text"
+          data-aos="fade-up"
+        >
+          My Projects
+        </h2>
+        <p
+          class="text-center text-gray-400 max-w-2xl mx-auto mb-16"
+          data-aos="fade-up"
+        >
+          A collection of my work showcasing my skills and creativity in solving
+          real-world problems.
+        </p>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Project 1 -->
+          <div
+            class="relative rounded-xl overflow-hidden group"
+            data-aos="fade-up"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+              alt="Dweller Project"
+              class="w-full h-64 object-cover transition duration-500 group-hover:scale-105"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/70 to-transparent"
+            ></div>
+            <div class="absolute bottom-0 left-0 p-6 w-full">
+              <h3 class="text-xl font-bold text-white">Dweller</h3>
+              <p class="text-gray-300">Online property sale platform</p>
+              <div
+                class="project-overlay absolute inset-0 bg-gray-900/80 flex flex-col justify-center items-center p-6"
+              >
+                <h3 class="text-2xl font-bold text-white mb-2">Dweller</h3>
+                <p class="text-gray-300 text-center mb-4">
+                  A modern property selling platform with rich listing UI,
+                  advanced search, and contact features.
+                </p>
+                <div class="flex flex-wrap justify-center gap-2 mb-4">
+                  <span
+                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
+                    >React</span
+                  >
+                  <span
+                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
+                    >Node.js</span
+                  >
+                  <span
+                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
+                    >MongoDB</span
+                  >
+                </div>
+                <div class="flex space-x-4">
+                  <a href="#" class="text-white hover:text-blue-400">
+                    <i class="fas fa-external-link-alt"></i>
+                  </a>
+                  <a href="#" class="text-white hover:text-blue-400">
+                    <i class="fab fa-github"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 2 -->
+          <div
+            class="relative rounded-xl overflow-hidden group"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+              alt="Vetez Project"
+              class="w-full h-64 object-cover transition duration-500 group-hover:scale-105"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/70 to-transparent"
+            ></div>
+            <div class="absolute bottom-0 left-0 p-6 w-full">
+              <h3 class="text-xl font-bold text-white">Vetez</h3>
+              <p class="text-gray-300">Vet hospital management system</p>
+              <div
+                class="project-overlay absolute inset-0 bg-gray-900/80 flex flex-col justify-center items-center p-6"
+              >
+                <h3 class="text-2xl font-bold text-white mb-2">Vetez</h3>
+                <p class="text-gray-300 text-center mb-4">
+                  Comprehensive pet hospital management system with appointment
+                  scheduling, medical records, and inventory.
+                </p>
+                <div class="flex flex-wrap justify-center gap-2 mb-4">
+                  <span
+                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
+                    >Java</span
+                  >
+                  <span
+                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
+                    >Spring Boot</span
+                  >
+                  <span
+                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
+                    >MySQL</span
+                  >
+                </div>
+                <div class="flex space-x-4">
+                  <a href="#" class="text-white hover:text-blue-400">
+                    <i class="fas fa-external-link-alt"></i>
+                  </a>
+                  <a href="#" class="text-white hover:text-blue-400">
+                    <i class="fab fa-github"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 3 -->
+          <div
+            class="relative rounded-xl overflow-hidden group"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+              alt="AutoDoc Project"
+              class="w-full h-64 object-cover transition duration-500 group-hover:scale-105"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/70 to-transparent"
+            ></div>
+            <div class="absolute bottom-0 left-0 p-6 w-full">
+              <h3 class="text-xl font-bold text-white">AutoDoc</h3>
+              <p class="text-gray-300">Vehicle service station system</p>
+              <div
+                class="project-overlay absolute inset-0 bg-gray-900/80 flex flex-col justify-center items-center p-6"
+              >
+                <h3 class="text-2xl font-bold text-white mb-2">AutoDoc</h3>
+                <p class="text-gray-300 text-center mb-4">
+                  Complete vehicle service management platform with appointment
+                  booking, inventory, and admin panel.
+                </p>
+                <div class="flex flex-wrap justify-center gap-2 mb-4">
+                  <span
+                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
+                    >C#</span
+                  >
+                  <span
+                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
+                    >.NET</span
+                  >
+                  <span
+                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
+                    >SQL Server</span
+                  >
+                </div>
+                <div class="flex space-x-4">
+                  <a href="#" class="text-white hover:text-blue-400">
+                    <i class="fas fa-external-link-alt"></i>
+                  </a>
+                  <a href="#" class="text-white hover:text-blue-400">
+                    <i class="fab fa-github"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 4 -->
+          <div
+            class="relative rounded-xl overflow-hidden group"
+            data-aos="fade-up"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1534187886935-1e1236e856c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+              alt="Atharaman Project"
+              class="w-full h-64 object-cover transition duration-500 group-hover:scale-105"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/70 to-transparent"
+            ></div>
+            <div class="absolute bottom-0 left-0 p-6 w-full">
+              <h3 class="text-xl font-bold text-white">Atharaman</h3>
+              <p class="text-gray-300">Camping website</p>
+              <div
+                class="project-overlay absolute inset-0 bg-gray-900/80 flex flex-col justify-center items-center p-6"
+              >
+                <h3 class="text-2xl font-bold text-white mb-2">Atharaman</h3>
+                <p class="text-gray-300 text-center mb-4">
+                  Platform for camping enthusiasts to discover locations, book
+                  sites, and connect with other campers.
+                </p>
+                <div class="flex flex-wrap justify-center gap-2 mb-4">
+                  <span
+                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
+                    >JavaScript</span
+                  >
+                  <span
+                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
+                    >Node.js</span
+                  >
+                  <span
+                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
+                    >MongoDB</span
+                  >
+                </div>
+                <div class="flex space-x-4">
+                  <a href="#" class="text-white hover:text-blue-400">
+                    <i class="fas fa-external-link-alt"></i>
+                  </a>
+                  <a href="#" class="text-white hover:text-blue-400">
+                    <i class="fab fa-github"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 5 -->
+          <div
+            class="relative rounded-xl overflow-hidden group"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1503220317375-aaad61436b1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+              alt="Travel Compass Project"
+              class="w-full h-64 object-cover transition duration-500 group-hover:scale-105"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/70 to-transparent"
+            ></div>
+            <div class="absolute bottom-0 left-0 p-6 w-full">
+              <h3 class="text-xl font-bold text-white">Travel Compass</h3>
+              <p class="text-gray-300">Trip budget planning tool</p>
+              <div
+                class="project-overlay absolute inset-0 bg-gray-900/80 flex flex-col justify-center items-center p-6"
+              >
+                <h3 class="text-2xl font-bold text-white mb-2">
+                  Travel Compass
+                </h3>
+                <p class="text-gray-300 text-center mb-4">
+                  Comprehensive trip planning application with budget tracking,
+                  itinerary management, and destination research.
+                </p>
+                <div class="flex flex-wrap justify-center gap-2 mb-4">
+                  <span
+                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
+                    >Python</span
+                  >
+                  <span
+                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
+                    >Django</span
+                  >
+                  <span
+                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
+                    >PostgreSQL</span
+                  >
+                </div>
+                <div class="flex space-x-4">
+                  <a href="#" class="text-white hover:text-blue-400">
+                    <i class="fas fa-external-link-alt"></i>
+                  </a>
+                  <a href="#" class="text-white hover:text-blue-400">
+                    <i class="fab fa-github"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 6 - Placeholder for future projects -->
+          <div
+            class="relative rounded-xl overflow-hidden group"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <div
+              class="w-full h-64 bg-gradient-to-br from-blue-900 to-purple-900 flex items-center justify-center"
+            >
+              <div class="text-center p-6">
+                <i class="fas fa-plus text-4xl text-blue-400 mb-4"></i>
+                <h3 class="text-xl font-bold text-white">Your Project Here</h3>
+                <p class="text-gray-300">What will we build together?</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 px-6 bg-gray-900/50 relative z-10">
+      <div class="max-w-6xl mx-auto">
+        <h2
+          class="text-3xl md:text-4xl font-bold mb-4 text-center gradient-text"
+          data-aos="fade-up"
+        >
+          Technical Skills
+        </h2>
+        <p
+          class="text-center text-gray-400 max-w-2xl mx-auto mb-16"
+          data-aos="fade-up"
+        >
+          The tools and technologies I use to bring ideas to life
+        </p>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Programming Languages -->
+          <div class="glass-card p-8 rounded-xl" data-aos="fade-up">
+            <div class="text-center mb-6">
+              <i class="fas fa-code text-4xl text-blue-400 mb-4"></i>
+              <h3 class="text-xl font-semibold">Programming Languages</h3>
+            </div>
+            <div class="flex flex-wrap gap-3 justify-center">
+              <div
+                class="skill-pill bg-blue-900/50 text-blue-300 px-4 py-2 rounded-full flex items-center"
+              >
+                <i class="fab fa-java mr-2"></i> Java
+              </div>
+              <div
+                class="skill-pill bg-blue-900/50 text-blue-300 px-4 py-2 rounded-full flex items-center"
+              >
+                <i class="fab fa-python mr-2"></i> Python
+              </div>
+              <div
+                class="skill-pill bg-blue-900/50 text-blue-300 px-4 py-2 rounded-full flex items-center"
+              >
+                <i class="fas fa-code mr-2"></i> C#
+              </div>
+              <div
+                class="skill-pill bg-blue-900/50 text-blue-300 px-4 py-2 rounded-full flex items-center"
+              >
+                <i class="fab fa-js-square mr-2"></i> JavaScript
+              </div>
+            </div>
+          </div>
+
+          <!-- Frontend Development -->
+          <div
+            class="glass-card p-8 rounded-xl"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <div class="text-center mb-6">
+              <i class="fas fa-laptop-code text-4xl text-purple-400 mb-4"></i>
+              <h3 class="text-xl font-semibold">Frontend Development</h3>
+            </div>
+            <div class="flex flex-wrap gap-3 justify-center">
+              <div
+                class="skill-pill bg-purple-900/50 text-purple-300 px-4 py-2 rounded-full flex items-center"
+              >
+                <i class="fab fa-html5 mr-2"></i> HTML5
+              </div>
+              <div
+                class="skill-pill bg-purple-900/50 text-purple-300 px-4 py-2 rounded-full flex items-center"
+              >
+                <i class="fab fa-css3-alt mr-2"></i> CSS3
+              </div>
+              <div
+                class="skill-pill bg-purple-900/50 text-purple-300 px-4 py-2 rounded-full flex items-center"
+              >
+                <i class="fab fa-react mr-2"></i> React
+              </div>
+              <div
+                class="skill-pill bg-purple-900/50 text-purple-300 px-4 py-2 rounded-full flex items-center"
+              >
+                <i class="fas fa-bold mr-2"></i> Bootstrap
+              </div>
+            </div>
+          </div>
+
+          <!-- Backend Development -->
+          <div
+            class="glass-card p-8 rounded-xl"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <div class="text-center mb-6">
+              <i class="fas fa-server text-4xl text-green-400 mb-4"></i>
+              <h3 class="text-xl font-semibold">Backend Development</h3>
+            </div>
+            <div class="flex flex-wrap gap-3 justify-center">
+              <div
+                class="skill-pill bg-green-900/50 text-green-300 px-4 py-2 rounded-full flex items-center"
+              >
+                <i class="fab fa-node-js mr-2"></i> Node.js
+              </div>
+              <div
+                class="skill-pill bg-green-900/50 text-green-300 px-4 py-2 rounded-full flex items-center"
+              >
+                <i class="fas fa-leaf mr-2"></i> Spring Boot
+              </div>
+              <div
+                class="skill-pill bg-green-900/50 text-green-300 px-4 py-2 rounded-full flex items-center"
+              >
+                <i class="fab fa-microsoft mr-2"></i> .NET
+              </div>
+              <div
+                class="skill-pill bg-green-900/50 text-green-300 px-4 py-2 rounded-full flex items-center"
+              >
+                <i class="fas fa-fire mr-2"></i> Firebase
+              </div>
+            </div>
+          </div>
+
+          <!-- Databases -->
+          <div class="glass-card p-8 rounded-xl" data-aos="fade-up">
+            <div class="text-center mb-6">
+              <i class="fas fa-database text-4xl text-yellow-400 mb-4"></i>
+              <h3 class="text-xl font-semibold">Databases</h3>
+            </div>
+            <div class="flex flex-wrap gap-3 justify-center">
+              <div
+                class="skill-pill bg-yellow-900/50 text-yellow-300 px-4 py-2 rounded-full flex items-center"
+              >
+                <i class="fas fa-database mr-2"></i> MySQL
+              </div>
+              <div
+                class="skill-pill bg-yellow-900/50 text-yellow-300 px-4 py-2 rounded-full flex items-center"
+              >
+                <i class="fas fa-database mr-2"></i> MongoDB
+              </div>
+              <div
+                class="skill-pill bg-yellow-900/50 text-yellow-300 px-4 py-2 rounded-full flex items-center"
+              >
+                <i class="fas fa-database mr-2"></i> PostgreSQL
+              </div>
+              <div
+                class="skill-pill bg-yellow-900/50 text-yellow-300 px-4 py-2 rounded-full flex items-center"
+              >
+                <i class="fas fa-database mr-2"></i> SQL Server
+              </div>
+            </div>
+          </div>
+
+          <!-- Tools & Platforms -->
+          <div
+            class="glass-card p-8 rounded-xl"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <div class="text-center mb-6">
+              <i class="fas fa-tools text-4xl text-red-400 mb-4"></i>
+              <h3 class="text-xl font-semibold">Tools & Platforms</h3>
+            </div>
+            <div class="flex flex-wrap gap-3 justify-center">
+              <div
+                class="skill-pill bg-red-900/50 text-red-300 px-4 py-2 rounded-full flex items-center"
+              >
+                <i class="fab fa-git-alt mr-2"></i> Git
+              </div>
+              <div
+                class="skill-pill bg-red-900/50 text-red-300 px-4 py-2 rounded-full flex items-center"
+              >
+                <i class="fab fa-github mr-2"></i> GitHub
+              </div>
+              <div
+                class="skill-pill bg-red-900/50 text-red-300 px-4 py-2 rounded-full flex items-center"
+              >
+                <i class="fab fa-docker mr-2"></i> Docker
+              </div>
+              <div
+                class="skill-pill bg-red-900/50 text-red-300 px-4 py-2 rounded-full flex items-center"
+              >
+                <i class="fab fa-aws mr-2"></i> AWS
+              </div>
+            </div>
+          </div>
+
+          <!-- Design & Other -->
+          <div
+            class="glass-card p-8 rounded-xl"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <div class="text-center mb-6">
+              <i class="fas fa-paint-brush text-4xl text-pink-400 mb-4"></i>
+              <h3 class="text-xl font-semibold">Design & Other</h3>
+            </div>
+            <div class="flex flex-wrap gap-3 justify-center">
+              <div
+                class="skill-pill bg-pink-900/50 text-pink-300 px-4 py-2 rounded-full flex items-center"
+              >
+                <i class="fab fa-figma mr-2"></i> Figma
+              </div>
+              <div
+                class="skill-pill bg-pink-900/50 text-pink-300 px-4 py-2 rounded-full flex items-center"
+              >
+                <i class="fas fa-pencil-ruler mr-2"></i> UI/UX Design
+              </div>
+              <div
+                class="skill-pill bg-pink-900/50 text-pink-300 px-4 py-2 rounded-full flex items-center"
+              >
+                <i class="fas fa-mobile-alt mr-2"></i> Responsive Design
+              </div>
+              <div
+                class="skill-pill bg-pink-900/50 text-pink-300 px-4 py-2 rounded-full flex items-center"
+              >
+                <i class="fas fa-terminal mr-2"></i> REST APIs
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-6 relative z-10">
+      <div class="max-w-6xl mx-auto">
+        <h2
+          class="text-3xl md:text-4xl font-bold mb-4 text-center gradient-text"
+          data-aos="fade-up"
+        >
+          Let's Connect
+        </h2>
+        <p
+          class="text-center text-gray-400 max-w-2xl mx-auto mb-16"
+          data-aos="fade-up"
+        >
+          Have a project in mind or want to discuss potential opportunities? I'd
+          love to hear from you.
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-12">
+          <div data-aos="fade-right">
+            <h3 class="text-xl font-semibold mb-6">Contact Information</h3>
+            <div class="space-y-6">
+              <div class="flex items-start">
+                <div class="bg-blue-900/30 p-3 rounded-lg mr-4">
+                  <i class="fas fa-envelope text-blue-400"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium">Email</h4>
+                  <a
+                    href="mailto:tharu553edu@gmail.com"
+                    class="text-blue-400 hover:underline"
+                    >tharu553edu@gmail.com</a
+                  >
+                </div>
+              </div>
+
+              <div class="flex items-start">
+                <div class="bg-blue-900/30 p-3 rounded-lg mr-4">
+                  <i class="fab fa-github text-blue-400"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium">GitHub</h4>
+                  <a
+                    href="https://github.com/Tharusha553"
+                    target="_blank"
+                    class="text-blue-400 hover:underline"
+                    >github.com/Tharusha553</a
+                  >
+                </div>
+              </div>
+
+              <div class="flex items-start">
+                <div class="bg-blue-900/30 p-3 rounded-lg mr-4">
+                  <i class="fab fa-linkedin text-blue-400"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium">LinkedIn</h4>
+                  <a
+                    href="http://www.linkedin.com/in/tharusha-ishan-5b438431b"
+                    target="_blank"
+                    class="text-blue-400 hover:underline"
+                    >linkedin.com/in/tharusha-ishan</a
+                  >
+                </div>
+              </div>
+
+              <div class="flex items-start">
+                <div class="bg-blue-900/30 p-3 rounded-lg mr-4">
+                  <i class="fab fa-instagram text-blue-400"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium">Instagram</h4>
+                  <a
+                    href="https://www.instagram.com/thar_usha?igsh=cXl6OHllN2FudnR4&utm_source=qr"
+                    target="_blank"
+                    class="text-blue-400 hover:underline"
+                    >@thar_usha</a
+                  >
+                </div>
+              </div>
+
+              <div class="flex items-start">
+                <div class="bg-blue-900/30 p-3 rounded-lg mr-4">
+                  <i class="fab fa-facebook text-blue-400"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium">Facebook</h4>
+                  <a
+                    href="https://www.facebook.com/share/1AQZAT37jf/?mibextid=wwXIfr"
+                    target="_blank"
+                    class="text-blue-400 hover:underline"
+                    >Tharusha Ishan</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div data-aos="fade-left">
+            <form class="space-y-6" onsubmit="submitForm(event)">
+              <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label for="name" class="block mb-2">Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required
+                  />
+                </div>
+                <div>
+                  <label for="email" class="block mb-2">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label for="subject" class="block mb-2">Subject</label>
+                <input
+                  type="text"
+                  id="subject"
+                  class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+              </div>
+
+              <div>
+                <label for="message" class="block mb-2">Message</label>
+                <textarea
+                  id="message"
+                  rows="5"
+                  class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required
+                ></textarea>
+              </div>
+
+              <button
+                type="submit"
+                class="bg-gradient-to-r from-blue-500 to-purple-600 px-8 py-3 rounded-lg hover:shadow-lg transition transform hover:scale-105 w-full"
+              >
+                Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-6 text-center glass-card relative z-10">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex justify-center mb-6">
+          <a href="#" class="text-2xl font-bold gradient-text"
+            >Tharusha Ishan</a
+          >
+        </div>
+        <div class="flex justify-center space-x-8 mb-6">
+          <a href="#about" class="hover:text-blue-400 transition">About</a>
+          <a href="#education" class="hover:text-blue-400 transition"
+            >Education</a
+          >
+          <a href="#projects" class="hover:text-blue-400 transition"
+            >Projects</a
+          >
+          <a href="#skills" class="hover:text-blue-400 transition">Skills</a>
+          <a href="#contact" class="hover:text-blue-400 transition">Contact</a>
+        </div>
+        <div class="flex justify-center space-x-6 mb-6">
+          <a
+            href="mailto:tharu553edu@gmail.com"
+            class="text-xl hover:text-blue-400"
+          >
+            <i class="fas fa-envelope"></i>
+          </a>
+          <a
+            href="https://github.com/Tharusha553"
+            target="_blank"
+            class="text-xl hover:text-blue-400"
+          >
+            <i class="fab fa-github"></i>
+          </a>
+          <a
+            href="http://www.linkedin.com/in/tharusha-ishan-5b438431b"
+            target="_blank"
+            class="text-xl hover:text-blue-400"
+          >
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a
+            href="https://www.instagram.com/thar_usha?igsh=cXl6OHllN2FudnR4&utm_source=qr"
+            target="_blank"
+            class="text-xl hover:text-blue-400"
+          >
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a
+            href="https://www.facebook.com/share/1AQZAT37jf/?mibextid=wwXIfr"
+            target="_blank"
+            class="text-xl hover:text-blue-400"
+          >
+            <i class="fab fa-facebook"></i>
+          </a>
+        </div>
+        <p class="text-gray-400">
+          &copy; 2023 Tharusha Ishan. All rights reserved.
+        </p>
+      </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button
+      id="back-to-top"
+      class="fixed bottom-8 right-8 bg-blue-600 w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700 transition hidden"
+    >
+      <i class="fas fa-arrow-up text-white"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script>
+      // Initialize AOS (Animate On Scroll)
+      AOS.init({
+        duration: 800,
+        once: true,
+      });
+
+      // Mobile menu toggle
+      document
+        .getElementById("menu-toggle")
+        .addEventListener("click", function () {
+          const menu = document.getElementById("mobile-menu");
+          menu.classList.toggle("hidden");
+        });
+
+      // Back to top button
+      const backToTopButton = document.getElementById("back-to-top");
+      window.addEventListener("scroll", function () {
+        if (window.pageYOffset > 300) {
+          backToTopButton.classList.remove("hidden");
+        } else {
+          backToTopButton.classList.add("hidden");
+        }
+      });
+      backToTopButton.addEventListener("click", function () {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      // Form submission
+      function submitForm(e) {
+        e.preventDefault();
+        // Here you would typically send the form data to a server
+        alert("Thank you for your message! I will get back to you soon.");
+        e.target.reset();
+      }
+
+      // Three.js Background
+      const threeContainer = document.getElementById("threejs-container");
+      if (threeContainer) {
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(
+          75,
+          window.innerWidth / window.innerHeight,
+          0.1,
+          1000
+        );
+        const renderer = new THREE.WebGLRenderer({
+          alpha: true,
+          antialias: true,
+        });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor(0x000000, 0);
+        threeContainer.appendChild(renderer.domElement);
+
+        // Create floating geometry
+        const geometry = new THREE.IcosahedronGeometry(1, 0);
+        const material = new THREE.MeshBasicMaterial({
+          color: 0x3b82f6,
+          wireframe: true,
+          transparent: true,
+          opacity: 0.5,
+        });
+
+        const particles = [];
+        const particleCount = 10;
+
+        for (let i = 0; i < particleCount; i++) {
+          const particle = new THREE.Mesh(geometry, material.clone());
+          particle.position.x = Math.random() * 20 - 10;
+          particle.position.y = Math.random() * 20 - 10;
+          particle.position.z = Math.random() * 20 - 10;
+          particle.scale.setScalar(Math.random() * 0.5 + 0.5);
+          scene.add(particle);
+          particles.push({
+            mesh: particle,
+            speed: Math.random() * 0.02 + 0.01,
+            rotation: Math.random() * Math.PI * 2,
+          });
+        }
+
+        camera.position.z = 5;
+
+        // Animation
+        function animate() {
+          requestAnimationFrame(animate);
+
+          particles.forEach((particle) => {
+            particle.mesh.rotation.x += particle.speed * 0.2;
+            particle.mesh.rotation.y += particle.speed * 0.2;
+            particle.rotation += particle.speed;
+            particle.mesh.position.x = Math.sin(particle.rotation) * 10;
+            particle.mesh.position.y = Math.cos(particle.rotation) * 10;
+            particle.mesh.position.z =
+              Math.sin(particle.rotation) * Math.cos(particle.rotation) * 10;
+          });
+
+          renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Handle window resize
+        window.addEventListener("resize", function () {
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+      }
+
+      // p5.js Particles
+      const particlesJS = document.getElementById("particles-js");
+      if (particlesJS) {
+        const particleScript = document.createElement("script");
+        particleScript.src =
+          "https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js";
+        particleScript.onload = function () {
+          particlesJS("particles-js", {
+            particles: {
+              number: {
+                value: 80,
+                density: {
+                  enable: true,
+                  value_area: 800,
+                },
+              },
+              color: {
+                value: "#3b82f6",
+              },
+              shape: {
+                type: "circle",
+                stroke: {
+                  width: 0,
+                  color: "#000000",
+                },
+              },
+              opacity: {
+                value: 0.5,
+                random: true,
+                anim: {
+                  enable: true,
+                  speed: 1,
+                  opacity_min: 0.1,
+                  sync: false,
+                },
+              },
+              size: {
+                value: 3,
+                random: true,
+                anim: {
+                  enable: true,
+                  speed: 2,
+                  size_min: 0.1,
+                  sync: false,
+                },
+              },
+              line_linked: {
+                enable: true,
+                distance: 150,
+                color: "#3b82f6",
+                opacity: 0.2,
+                width: 1,
+              },
+              move: {
+                enable: true,
+                speed: 1,
+                direction: "none",
+                random: true,
+                straight: false,
+                out_mode: "out",
+                bounce: false,
+                attract: {
+                  enable: false,
+                  rotateX: 600,
+                  rotateY: 1200,
+                },
+              },
+            },
+            interactivity: {
+              detect_on: "canvas",
+              events: {
+                onhover: {
+                  enable: true,
+                  mode: "grab",
+                },
+                onclick: {
+                  enable: true,
+                  mode: "push",
+                },
+                resize: true,
+              },
+              modes: {
+                grab: {
+                  distance: 140,
+                  line_linked: {
+                    opacity: 0.5,
+                  },
+                },
+                push: {
+                  particles_nb: 4,
+                },
+              },
+            },
+            retina_detect: true,
+          });
+        };
+        document.body.appendChild(particleScript);
+      }
+    </script>
+  </body>
+</html>
