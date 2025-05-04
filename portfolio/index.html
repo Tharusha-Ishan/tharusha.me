@@ -75,6 +75,37 @@
         border: 4px solid #3b82f6;
         box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
       }
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 100;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+      .modal-content {
+        background-color: #0f172a;
+        margin: 10% auto;
+        padding: 30px;
+        border: 1px solid #334155;
+        width: 80%;
+        max-width: 800px;
+        border-radius: 10px;
+        position: relative;
+      }
+      .close-btn {
+        color: #94a3b8;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .close-btn:hover {
+        color: #e2e8f0;
+      }
     </style>
   </head>
   <body>
@@ -83,6 +114,53 @@
 
     <!-- Floating Particles Canvas -->
     <div id="particles-js" class="fixed top-0 left-0 w-full h-full z-0"></div>
+
+    <!-- Project Details Modal -->
+    <div id="projectModal" class="modal">
+      <div class="modal-content glass-card">
+        <span class="close-btn">&times;</span>
+        <h2 id="modalTitle" class="text-3xl font-bold mb-4 gradient-text"></h2>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div>
+            <img
+              id="modalImage"
+              src=""
+              alt="Project"
+              class="w-full rounded-lg mb-4"
+            />
+            <div class="flex space-x-4 mb-6">
+              <a
+                id="liveLink"
+                href="#"
+                target="_blank"
+                class="bg-gradient-to-r from-blue-500 to-purple-600 px-4 py-2 rounded-lg hover:shadow-lg transition flex items-center"
+              >
+                <i class="fas fa-external-link-alt mr-2"></i> Live Demo
+              </a>
+              <a
+                id="githubLink"
+                href="#"
+                target="_blank"
+                class="border border-blue-400 text-blue-400 px-4 py-2 rounded-lg hover:bg-blue-900/30 transition flex items-center"
+              >
+                <i class="fab fa-github mr-2"></i> View Code
+              </a>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold mb-2">Project Description</h3>
+            <p id="modalDescription" class="text-gray-300 mb-6"></p>
+            <h3 class="text-xl font-semibold mb-2">Technologies Used</h3>
+            <div id="modalTechnologies" class="flex flex-wrap gap-2 mb-6"></div>
+            <h3 class="text-xl font-semibold mb-2">Key Features</h3>
+            <ul
+              id="modalFeatures"
+              class="list-disc list-inside text-gray-300 space-y-2"
+            ></ul>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Navigation -->
     <nav class="fixed top-0 left-0 w-full z-50 glass-card shadow-lg">
@@ -102,6 +180,7 @@
           <a href="#contact" class="hover:text-blue-400 transition">Contact</a>
           <a
             href="#"
+            id="resumeBtn"
             class="bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-2 rounded-full hover:shadow-lg transition"
             >Resume</a
           >
@@ -124,6 +203,7 @@
           <a href="#contact" class="hover:text-blue-400 transition">Contact</a>
           <a
             href="#"
+            id="resumeBtnMobile"
             class="bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-2 rounded-full text-center"
             >Resume</a
           >
@@ -313,162 +393,11 @@
         </p>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Project 1 -->
+          <!-- Project 1-->
           <div
-            class="relative rounded-xl overflow-hidden group"
+            class="relative rounded-xl overflow-hidden group project-card"
             data-aos="fade-up"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-              alt="Dweller Project"
-              class="w-full h-64 object-cover transition duration-500 group-hover:scale-105"
-            />
-            <div
-              class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/70 to-transparent"
-            ></div>
-            <div class="absolute bottom-0 left-0 p-6 w-full">
-              <h3 class="text-xl font-bold text-white">Dweller</h3>
-              <p class="text-gray-300">Online property sale platform</p>
-              <div
-                class="project-overlay absolute inset-0 bg-gray-900/80 flex flex-col justify-center items-center p-6"
-              >
-                <h3 class="text-2xl font-bold text-white mb-2">Dweller</h3>
-                <p class="text-gray-300 text-center mb-4">
-                  A modern property selling platform with rich listing UI,
-                  advanced search, and contact features.
-                </p>
-                <div class="flex flex-wrap justify-center gap-2 mb-4">
-                  <span
-                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
-                    >React</span
-                  >
-                  <span
-                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
-                    >Node.js</span
-                  >
-                  <span
-                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
-                    >MongoDB</span
-                  >
-                </div>
-                <div class="flex space-x-4">
-                  <a href="#" class="text-white hover:text-blue-400">
-                    <i class="fas fa-external-link-alt"></i>
-                  </a>
-                  <a href="#" class="text-white hover:text-blue-400">
-                    <i class="fab fa-github"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Project 2 -->
-          <div
-            class="relative rounded-xl overflow-hidden group"
-            data-aos="fade-up"
-            data-aos-delay="100"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-              alt="Vetez Project"
-              class="w-full h-64 object-cover transition duration-500 group-hover:scale-105"
-            />
-            <div
-              class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/70 to-transparent"
-            ></div>
-            <div class="absolute bottom-0 left-0 p-6 w-full">
-              <h3 class="text-xl font-bold text-white">Vetez</h3>
-              <p class="text-gray-300">Vet hospital management system</p>
-              <div
-                class="project-overlay absolute inset-0 bg-gray-900/80 flex flex-col justify-center items-center p-6"
-              >
-                <h3 class="text-2xl font-bold text-white mb-2">Vetez</h3>
-                <p class="text-gray-300 text-center mb-4">
-                  Comprehensive pet hospital management system with appointment
-                  scheduling, medical records, and inventory.
-                </p>
-                <div class="flex flex-wrap justify-center gap-2 mb-4">
-                  <span
-                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
-                    >Java</span
-                  >
-                  <span
-                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
-                    >Spring Boot</span
-                  >
-                  <span
-                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
-                    >MySQL</span
-                  >
-                </div>
-                <div class="flex space-x-4">
-                  <a href="#" class="text-white hover:text-blue-400">
-                    <i class="fas fa-external-link-alt"></i>
-                  </a>
-                  <a href="#" class="text-white hover:text-blue-400">
-                    <i class="fab fa-github"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Project 3 -->
-          <div
-            class="relative rounded-xl overflow-hidden group"
-            data-aos="fade-up"
-            data-aos-delay="200"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-              alt="AutoDoc Project"
-              class="w-full h-64 object-cover transition duration-500 group-hover:scale-105"
-            />
-            <div
-              class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/70 to-transparent"
-            ></div>
-            <div class="absolute bottom-0 left-0 p-6 w-full">
-              <h3 class="text-xl font-bold text-white">AutoDoc</h3>
-              <p class="text-gray-300">Vehicle service station system</p>
-              <div
-                class="project-overlay absolute inset-0 bg-gray-900/80 flex flex-col justify-center items-center p-6"
-              >
-                <h3 class="text-2xl font-bold text-white mb-2">AutoDoc</h3>
-                <p class="text-gray-300 text-center mb-4">
-                  Complete vehicle service management platform with appointment
-                  booking, inventory, and admin panel.
-                </p>
-                <div class="flex flex-wrap justify-center gap-2 mb-4">
-                  <span
-                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
-                    >C#</span
-                  >
-                  <span
-                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
-                    >.NET</span
-                  >
-                  <span
-                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
-                    >SQL Server</span
-                  >
-                </div>
-                <div class="flex space-x-4">
-                  <a href="#" class="text-white hover:text-blue-400">
-                    <i class="fas fa-external-link-alt"></i>
-                  </a>
-                  <a href="#" class="text-white hover:text-blue-400">
-                    <i class="fab fa-github"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Project 4 -->
-          <div
-            class="relative rounded-xl overflow-hidden group"
-            data-aos="fade-up"
+            onclick="openProjectModal('Atharaman', 'Platform for camping enthusiasts to discover locations, book sites, and connect with other campers. Features include campsite reviews, weather information, and community features for outdoor lovers.', 'https://images.unsplash.com/photo-1534187886935-1e1236e856c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80', ['JavaScript', 'Node.js', 'MongoDB', 'Express'], ['Campsite discovery and booking', 'User reviews and ratings', 'Weather and location information', 'Community forums and events', 'Mobile-responsive design'], 'https://atharaman-demo.com', 'https://github.com/yourusername/atharaman')"
           >
             <img
               src="https://images.unsplash.com/photo-1534187886935-1e1236e856c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
@@ -515,11 +444,12 @@
             </div>
           </div>
 
-          <!-- Project 5 -->
+          <!-- Project 2 -->
           <div
-            class="relative rounded-xl overflow-hidden group"
+            class="relative rounded-xl overflow-hidden group project-card"
             data-aos="fade-up"
             data-aos-delay="100"
+            onclick="openProjectModal('Travel Compass', 'Comprehensive trip planning application with budget tracking, itinerary management, and destination research tools. Helps travelers plan their perfect trip with all details in one place.', 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80', ['Python', 'Django', 'PostgreSQL', 'Bootstrap'], ['Trip budget calculator', 'Itinerary planner with maps', 'Destination research tools', 'Packing list generator', 'Travel expense tracker'], 'https://travelcompass-demo.com', 'https://github.com/yourusername/travel-compass')"
           >
             <img
               src="https://images.unsplash.com/photo-1503220317375-aaad61436b1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
@@ -568,6 +498,161 @@
             </div>
           </div>
 
+          <!-- Project 3  -->
+          <div
+            class="relative rounded-xl overflow-hidden group project-card"
+            data-aos="fade-up"
+            onclick="openProjectModal('Dweller', 'A modern property selling platform with rich listing UI, advanced search, and contact features. This platform connects property buyers and sellers with an intuitive interface and powerful filtering options.', 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80', ['React', 'Node.js', 'MongoDB', 'Tailwind CSS'], ['Property listing management system', 'Advanced search with filters', 'User authentication and profiles', 'Contact forms for inquiries', 'Responsive design for all devices'], 'https://dweller-demo.com', 'https://github.com/yourusername/dweller')"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+              alt="Dweller Project"
+              class="w-full h-64 object-cover transition duration-500 group-hover:scale-105"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/70 to-transparent"
+            ></div>
+            <div class="absolute bottom-0 left-0 p-6 w-full">
+              <h3 class="text-xl font-bold text-white">Dweller</h3>
+              <p class="text-gray-300">Online property sale platform</p>
+              <div
+                class="project-overlay absolute inset-0 bg-gray-900/80 flex flex-col justify-center items-center p-6"
+              >
+                <h3 class="text-2xl font-bold text-white mb-2">Dweller</h3>
+                <p class="text-gray-300 text-center mb-4">
+                  A modern property selling platform with rich listing UI,
+                  advanced search, and contact features.
+                </p>
+                <div class="flex flex-wrap justify-center gap-2 mb-4">
+                  <span
+                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
+                    >React</span
+                  >
+                  <span
+                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
+                    >Node.js</span
+                  >
+                  <span
+                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
+                    >MongoDB</span
+                  >
+                </div>
+                <div class="flex space-x-4">
+                  <a href="#" class="text-white hover:text-blue-400">
+                    <i class="fas fa-external-link-alt"></i>
+                  </a>
+                  <a href="#" class="text-white hover:text-blue-400">
+                    <i class="fab fa-github"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 4 -->
+          <div
+            class="relative rounded-xl overflow-hidden group project-card"
+            data-aos="fade-up"
+            data-aos-delay="100"
+            onclick="openProjectModal('Vetez', 'Comprehensive pet hospital management system with appointment scheduling, medical records, and inventory management. Designed to streamline operations for veterinary clinics and improve pet care services.', 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80', ['Java', 'Spring Boot', 'MySQL', 'Thymeleaf'], ['Appointment scheduling system', 'Pet medical records management', 'Inventory and prescription tracking', 'Staff and client management', 'Reporting and analytics dashboard'], 'https://vetez-demo.com', 'https://github.com/yourusername/vetez')"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+              alt="Vetez Project"
+              class="w-full h-64 object-cover transition duration-500 group-hover:scale-105"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/70 to-transparent"
+            ></div>
+            <div class="absolute bottom-0 left-0 p-6 w-full">
+              <h3 class="text-xl font-bold text-white">Vetez</h3>
+              <p class="text-gray-300">Vet hospital management system</p>
+              <div
+                class="project-overlay absolute inset-0 bg-gray-900/80 flex flex-col justify-center items-center p-6"
+              >
+                <h3 class="text-2xl font-bold text-white mb-2">Vetez</h3>
+                <p class="text-gray-300 text-center mb-4">
+                  Comprehensive pet hospital management system with appointment
+                  scheduling, medical records, and inventory.
+                </p>
+                <div class="flex flex-wrap justify-center gap-2 mb-4">
+                  <span
+                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
+                    >Java</span
+                  >
+                  <span
+                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
+                    >Spring Boot</span
+                  >
+                  <span
+                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
+                    >MySQL</span
+                  >
+                </div>
+                <div class="flex space-x-4">
+                  <a href="#" class="text-white hover:text-blue-400">
+                    <i class="fas fa-external-link-alt"></i>
+                  </a>
+                  <a href="#" class="text-white hover:text-blue-400">
+                    <i class="fab fa-github"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 5 -->
+          <div
+            class="relative rounded-xl overflow-hidden group project-card"
+            data-aos="fade-up"
+            data-aos-delay="200"
+            onclick="openProjectModal('AutoDoc', 'Complete vehicle service management platform with appointment booking, inventory tracking, and admin panel. Designed to help service stations manage their operations efficiently and provide better customer service.', 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80', ['C#', '.NET', 'SQL Server', 'Blazor'], ['Vehicle service appointment system', 'Inventory and parts management', 'Customer relationship management', 'Service history tracking', 'Admin dashboard with analytics'], 'https://autodoc-demo.com', 'https://github.com/yourusername/autodoc')"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+              alt="AutoDoc Project"
+              class="w-full h-64 object-cover transition duration-500 group-hover:scale-105"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/70 to-transparent"
+            ></div>
+            <div class="absolute bottom-0 left-0 p-6 w-full">
+              <h3 class="text-xl font-bold text-white">AutoDoc</h3>
+              <p class="text-gray-300">Vehicle service station system</p>
+              <div
+                class="project-overlay absolute inset-0 bg-gray-900/80 flex flex-col justify-center items-center p-6"
+              >
+                <h3 class="text-2xl font-bold text-white mb-2">AutoDoc</h3>
+                <p class="text-gray-300 text-center mb-4">
+                  Complete vehicle service management platform with appointment
+                  booking, inventory, and admin panel.
+                </p>
+                <div class="flex flex-wrap justify-center gap-2 mb-4">
+                  <span
+                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
+                    >C#</span
+                  >
+                  <span
+                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
+                    >.NET</span
+                  >
+                  <span
+                    class="skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm"
+                    >SQL Server</span
+                  >
+                </div>
+                <div class="flex space-x-4">
+                  <a href="#" class="text-white hover:text-blue-400">
+                    <i class="fas fa-external-link-alt"></i>
+                  </a>
+                  <a href="#" class="text-white hover:text-blue-400">
+                    <i class="fab fa-github"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <!-- Project 6 - Placeholder for future projects -->
           <div
             class="relative rounded-xl overflow-hidden group"
@@ -579,7 +664,9 @@
             >
               <div class="text-center p-6">
                 <i class="fas fa-plus text-4xl text-blue-400 mb-4"></i>
-                <h3 class="text-xl font-bold text-white">Your Project Here</h3>
+                <h3 class="text-xl font-bold text-white">
+                  Future Project Here
+                </h3>
                 <p class="text-gray-300">What will we build together?</p>
               </div>
             </div>
@@ -1061,6 +1148,86 @@
         alert("Thank you for your message! I will get back to you soon.");
         e.target.reset();
       }
+
+      // Resume download functionality
+      function downloadResume() {
+        // Create a dummy PDF file for download
+        const pdfUrl =
+          "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf";
+        const link = document.createElement("a");
+        link.href = pdfUrl;
+        link.download = "Tharusha_Ishan_CV.pdf";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+
+      // Add event listeners to resume buttons
+      document
+        .getElementById("resumeBtn")
+        .addEventListener("click", function (e) {
+          e.preventDefault();
+          downloadResume();
+        });
+
+      document
+        .getElementById("resumeBtnMobile")
+        .addEventListener("click", function (e) {
+          e.preventDefault();
+          downloadResume();
+        });
+
+      // Project modal functionality
+      const modal = document.getElementById("projectModal");
+      const closeBtn = document.querySelector(".close-btn");
+
+      function openProjectModal(
+        title,
+        description,
+        image,
+        technologies,
+        features,
+        liveLink,
+        githubLink
+      ) {
+        document.getElementById("modalTitle").textContent = title;
+        document.getElementById("modalDescription").textContent = description;
+        document.getElementById("modalImage").src = image;
+
+        const technologiesContainer =
+          document.getElementById("modalTechnologies");
+        technologiesContainer.innerHTML = "";
+        technologies.forEach((tech) => {
+          const techPill = document.createElement("span");
+          techPill.className =
+            "skill-pill bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm";
+          techPill.textContent = tech;
+          technologiesContainer.appendChild(techPill);
+        });
+
+        const featuresContainer = document.getElementById("modalFeatures");
+        featuresContainer.innerHTML = "";
+        features.forEach((feature) => {
+          const featureItem = document.createElement("li");
+          featureItem.textContent = feature;
+          featuresContainer.appendChild(featureItem);
+        });
+
+        document.getElementById("liveLink").href = liveLink;
+        document.getElementById("githubLink").href = githubLink;
+
+        modal.style.display = "block";
+      }
+
+      closeBtn.addEventListener("click", function () {
+        modal.style.display = "none";
+      });
+
+      window.addEventListener("click", function (event) {
+        if (event.target === modal) {
+          modal.style.display = "none";
+        }
+      });
 
       // Three.js Background
       const threeContainer = document.getElementById("threejs-container");
