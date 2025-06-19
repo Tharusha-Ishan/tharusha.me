@@ -1036,7 +1036,7 @@ onclick="openProjectModal('DeepNix', 'Web development firm crafting scalable, re
           </div>
 
           <div data-aos="fade-left">
-            <form class="space-y-6" onsubmit="submitForm(event)">
+            <form id="contact-form" class="space-y-6" onsubmit="submitForm(event)">
               <div class="grid md:grid-cols-2 gap-6">
                 <div>
                   <label for="name" class="block mb-2">Name</label>
@@ -1159,6 +1159,54 @@ onclick="openProjectModal('DeepNix', 'Web development firm crafting scalable, re
       <i class="fas fa-arrow-up text-white"></i>
     </button>
 
+
+
+
+ <!-- Email server.js intergration -->
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  // Initialize EmailJS with your User ID
+  (function() {
+    emailjs.init({
+      publicKey: "lsFhgCv5tQjxmdeY_",
+    });
+  })();
+  
+  function submitForm(event) {
+    event.preventDefault();
+    
+    const serviceID = "service_q46vjrl";
+    const templateID = "template_xvdvc1d";
+    
+    // Get form data
+    const formData = {
+      from_name: document.getElementById("name").value,
+      from_email: document.getElementById("email").value,
+      subject: document.getElementById("subject").value,
+      message: document.getElementById("message").value
+    };
+    
+    // Send email
+    emailjs.send(serviceID, templateID, formData)
+      .then(
+        (response) => {
+          console.log("SUCCESS!", response.status, response.text);
+          alert("Message sent successfully!");
+          document.getElementById("contact-form").reset();
+        },
+        (error) => {
+          console.log("FAILED...", error);
+          alert("Failed to send message. Please try again later.");
+        }
+      );
+  }
+</script>
+
+
+
+
+
     <!-- Scripts -->
     <script>
       // Initialize AOS (Animate On Scroll)
@@ -1188,6 +1236,11 @@ onclick="openProjectModal('DeepNix', 'Web development firm crafting scalable, re
         window.scrollTo({ top: 0, behavior: "smooth" });
       });
 
+
+
+
+/*
+
       // Form submission
       function submitForm(e) {
         e.preventDefault();
@@ -1196,11 +1249,17 @@ onclick="openProjectModal('DeepNix', 'Web development firm crafting scalable, re
         e.target.reset();
       }
 
+
+*/
+
+
+
+
       // Resume download functionality
       function downloadResume() {
-        // Create a dummy PDF file for download
+        // CV link
         const pdfUrl =
-          "https://drive.google.com/file/d/1OShxyrIbU-XHy6e3kAdWdgORhp_0sCfL/view?usp=drivesdk";
+          "https://drive.google.com/file/d/1aN7uVAHSKm0o0kaNuCrWdt0bERYpXgtq/view?usp=drivesdk";
         const link = document.createElement("a");
         link.href = pdfUrl;
         link.download = "Tharusha_Ishan_CV.pdf";
